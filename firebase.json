@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", ".firebaserc", "README.md", "CLAUDE.md", "node_modules", ".firebase"],
+    "headers": [
+      {
+        "source": "style.css",
+        "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]
+      },
+      {
+        "source": "img/**",
+        "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [{"key": "Cache-Control", "value": "no-cache"}]
+      }
+    ]
+  }
+}
