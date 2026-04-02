@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": ".",
-    "ignore": ["firebase.json", ".firebaserc", "README.md", "CLAUDE.md", "node_modules", ".firebase"],
+    "ignore": ["firebase.json", ".firebaserc", "README.md", "CLAUDE.md", "node_modules", ".firebase", ".github"],
     "headers": [
       {
         "source": "style.css",
