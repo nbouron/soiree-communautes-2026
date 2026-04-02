@@ -43,16 +43,17 @@
 <!-- Planning Grid -->
 <div class="planning-grid">
 
-  <!-- Legend -->
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--agile)"></div>Agile Rennes</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--devops)"></div>Rennes DevOps</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--breizh)"></div>BreizhData Club</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--js)"></div>RennesJS</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--mobile)"></div>Mobile Rennes</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--genai)"></div>GenAI Rennes</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--crafters)"></div>Software Crafters</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--breizhjug)"></div>BreizhJUG</div>
+  <!-- Legend / Filter -->
+  <div class="legend" id="legend-filter">
+    <button class="legend-item legend-btn active" data-filter="all" type="button"><div class="legend-dot" style="background:var(--violet)"></div>Tous</button>
+    <button class="legend-item legend-btn" data-filter="agile" type="button"><div class="legend-dot" style="background:var(--agile)"></div>Agile Rennes</button>
+    <button class="legend-item legend-btn" data-filter="devops" type="button"><div class="legend-dot" style="background:var(--devops)"></div>Rennes DevOps</button>
+    <button class="legend-item legend-btn" data-filter="breizh" type="button"><div class="legend-dot" style="background:var(--breizh)"></div>BreizhData Club</button>
+    <button class="legend-item legend-btn" data-filter="js" type="button"><div class="legend-dot" style="background:var(--js)"></div>RennesJS</button>
+    <button class="legend-item legend-btn" data-filter="mobile" type="button"><div class="legend-dot" style="background:var(--mobile)"></div>Mobile Rennes</button>
+    <button class="legend-item legend-btn" data-filter="genai" type="button"><div class="legend-dot" style="background:var(--genai)"></div>GenAI Rennes</button>
+    <button class="legend-item legend-btn" data-filter="crafters" type="button"><div class="legend-dot" style="background:var(--crafters)"></div>Software Crafters</button>
+    <button class="legend-item legend-btn" data-filter="breizhjug" type="button"><div class="legend-dot" style="background:var(--breizhjug)"></div>BreizhJUG</button>
   </div>
 
   <!-- Schedule Grid -->
@@ -271,5 +272,33 @@
   </div>
 </footer>
 
+<style>
+.legend-btn{border:none;cursor:pointer;background:none;padding:.35rem .65rem;border-radius:6px;transition:background .15s,opacity .15s}
+.legend-btn:hover{background:rgba(142,48,137,.08)}
+.legend-btn.active{background:rgba(142,48,137,.12);outline:2px solid var(--violet);outline-offset:-2px}
+.talk-cell.dimmed{opacity:.15;pointer-events:none;transition:opacity .25s}
+.talk-cell.highlighted{outline:2px solid var(--violet);outline-offset:-2px;transition:opacity .25s}
+</style>
+<script>
+document.getElementById('legend-filter').addEventListener('click',function(e){
+  var btn=e.target.closest('.legend-btn');
+  if(!btn)return;
+  var filter=btn.dataset.filter;
+  // Toggle active
+  document.querySelectorAll('.legend-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  // Filter cells
+  var cells=document.querySelectorAll('.talk-cell');
+  if(filter==='all'){
+    cells.forEach(function(c){c.classList.remove('dimmed','highlighted')});
+  }else{
+    cells.forEach(function(c){
+      if(c.classList.contains('empty')){c.classList.add('dimmed');return}
+      if(c.classList.contains(filter)){c.classList.remove('dimmed');c.classList.add('highlighted')}
+      else{c.classList.add('dimmed');c.classList.remove('highlighted')}
+    });
+  }
+});
+</script>
 </body>
 </html>
