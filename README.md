@@ -9,11 +9,11 @@ Site web écoresponsable pour la soirée des communautés tech rennaises.
 
 ## L'événement
 
-Les communautés tech de Rennes se retrouvent pour une soirée de talks courts (20min + 5min Q&A), de partage d'expérience et de convivialité. 16 talks, 8 communautés, 6 salles en parallèle. Pizzas et boissons offerts après les présentations.
+Les communautés tech de Rennes se retrouvent pour une soirée de talks courts (20min + 5min Q&A), de partage d'expérience et de convivialité. 18 talks, 10 communautés, 6 salles en parallèle. Pizzas et boissons offerts après les présentations.
 
 ### Communautés participantes
 
-Agile Rennes · Rennes DevOps · BreizhData Club · RennesJS · Mobile Rennes · GenAI Rennes · Software Crafters · BreizhJUG
+Agile Rennes · Rennes DevOps · BreizhData Club · RennesJS · Mobile Rennes · GenAI Rennes · Software Crafters · BreizhJUG · AWS Rennes · GDG Rennes
 
 Organisé par le [BreizhCamp](https://www.breizhcamp.org/), accueilli par [Epitech Rennes](https://www.epitech.eu/ecole-informatique-rennes/).
 
@@ -34,7 +34,7 @@ Ce site applique les principes d'écoconception numérique :
 | **Cache long** | Images/CSS : 1 an, HTML : no-cache | Réduit les requêtes réseau |
 | **Print styles** | Impression propre sans nav/footer | Évite l'impression inutile |
 | **Accessibilité** | Skip-link, focus-visible, contraste 4.5:1 | L'accessibilité est éco-responsable |
-| **Pas de JavaScript** | Site 100% HTML/CSS statique | Zéro coût d'exécution JS |
+| **JavaScript minimal** | Seul Google Analytics GA4 (async) | Tracking léger, pas de framework |
 
 ### Objectifs
 
@@ -54,10 +54,21 @@ Ce site applique les principes d'écoconception numérique :
 
 ## Stack technique
 
-- HTML5 sémantique + CSS (pas de JavaScript)
+- HTML5 sémantique + CSS (fichier `style.css` unique partagé)
+- Google Analytics GA4 (`G-0KXV4BWTBD`) — snippet async, sans framework
 - Images WebP optimisées
 - Polices système (Inter/system-ui)
-- Firebase Hosting
+- Firebase Hosting (`bzhcamp-soiree-2026`)
+
+## Infrastructure & monitoring
+
+| Service | Détail |
+|---------|--------|
+| **Firebase Hosting** | Déploiement automatique via GitHub Actions |
+| **CI/CD** | `.github/workflows/` — deploy sur push `main` |
+| **Uptime check** | Cloud Monitoring — check toutes les 60s sur `bzhcamp-soiree-2026.web.app` |
+| **Alertes** | Email `nicolas.bouron@gmail.com` si site down |
+| **Analytics** | Firebase Analytics / GA4 — `G-0KXV4BWTBD` |
 
 ## Développement
 
@@ -65,7 +76,7 @@ Ce site applique les principes d'écoconception numérique :
 # Serveur local
 python3 -m http.server 8765
 
-# Déployer
+# Déployer manuellement (le CI le fait automatiquement)
 firebase deploy --only hosting
 ```
 
